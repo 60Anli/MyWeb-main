@@ -1,0 +1,22 @@
+/* 自定义主题切换按钮样式 */
+.themeToggle {
+  position: relative;
+}
+
+/* 可以添加过期提示的样式 */
+.expiryIndicator {
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  width: 6px;
+  height: 6px;
+  background-color: var(--ifm-color-warning);
+  border-radius: 50%;
+  opacity: 0.7;
+}
+
+/* 主题切换动画 */
+.themeToggle:hover {
+  transform: scale(1.05);
+  transition: transform 0.2s ease;
+}

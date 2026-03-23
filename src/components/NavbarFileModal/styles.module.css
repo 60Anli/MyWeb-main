@@ -1,0 +1,544 @@
+/* 模态框样式 */
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  backdrop-filter: blur(4px);
+  animation: overlayFadeIn 0.3s ease-out;
+}
+
+@keyframes overlayFadeIn {
+  from {
+    opacity: 0;
+    backdrop-filter: blur(0px);
+  }
+  to {
+    opacity: 1;
+    backdrop-filter: blur(4px);
+  }
+}
+
+.modalContent {
+  background: linear-gradient(135deg, #ffffff 0%, #fafbfc 100%);
+  border: none;
+  border-radius: 16px;
+  width: 90%;
+  max-width: 650px;
+  max-height: 85vh;
+  overflow: hidden;
+  box-shadow: 
+    0 20px 60px rgba(0, 0, 0, 0.15),
+    0 8px 25px rgba(0, 0, 0, 0.1),
+    0 0 0 1px rgba(255, 255, 255, 0.8);
+  animation: modalSlideIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  position: relative;
+}
+
+@keyframes modalSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-30px) scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.modalHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 24px 28px 20px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+  position: sticky;
+  top: 0;
+  background: linear-gradient(135deg, #ffffff 0%, #fafbfc 100%);
+  z-index: 1;
+  backdrop-filter: blur(10px);
+}
+
+.modalHeader h3 {
+  margin: 0;
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--ifm-color-emphasis-900);
+  background: linear-gradient(135deg, var(--ifm-color-primary) 0%, var(--ifm-color-primary-dark) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.closeButton {
+  background: rgba(0, 0, 0, 0.05);
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+  color: var(--ifm-color-emphasis-600);
+  padding: 8px;
+  border-radius: 50%;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  line-height: 1;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.closeButton::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, var(--ifm-color-danger) 0%, var(--ifm-color-danger-dark) 100%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  border-radius: 50%;
+}
+
+.closeButton:hover {
+  background: rgba(0, 0, 0, 0.1);
+  color: white;
+  transform: scale(1.1);
+}
+
+.closeButton:hover::before {
+  opacity: 1;
+}
+
+.closeButton:hover {
+  color: white;
+  z-index: 1;
+}
+
+.modalBody {
+  padding: 24px 28px;
+  max-height: 65vh;
+  overflow: hidden; /* 从 overflow-y: auto 改为 overflow: hidden */
+  background: rgba(255, 255, 255, 0.5);
+}
+
+.fileContentTextarea {
+  width: 100%;
+  padding: 16px;
+  border: 2px solid rgba(0, 0, 0, 0.1);
+  border-radius: 12px;
+  font-size: 14px;
+  font-family: 'SF Mono', 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+  background: rgba(255, 255, 255, 0.8);
+  color: var(--ifm-color-emphasis-900);
+  resize: vertical;
+  min-height: 220px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  backdrop-filter: blur(10px);
+  line-height: 1.6;
+  overflow-y: auto; /* 确保textarea有滚动条 */
+}
+
+/* 为textarea添加自定义滚动条样式 */
+.fileContentTextarea::-webkit-scrollbar {
+  width: 6px;
+}
+
+.fileContentTextarea::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.05);
+  border-radius: 3px;
+}
+
+.fileContentTextarea::-webkit-scrollbar-thumb {
+  background: linear-gradient(135deg, var(--ifm-color-primary) 0%, var(--ifm-color-primary-dark) 100%);
+  border-radius: 3px;
+}
+
+.fileContentTextarea::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(135deg, var(--ifm-color-primary-dark) 0%, var(--ifm-color-primary-darker) 100%);
+}
+
+/* 移除modalBody的滚动条样式，改为应用到textarea */
+/* [data-theme='dark'] .modalBody::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.1);
+} */
+
+/* 为暗色主题下的textarea添加滚动条样式 */
+[data-theme='dark'] .fileContentTextarea::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+[data-theme='dark'] .fileContentTextarea::-webkit-scrollbar-thumb {
+  background: linear-gradient(135deg, var(--ifm-color-primary) 0%, var(--ifm-color-primary-dark) 100%);
+}
+
+[data-theme='dark'] .fileContentTextarea::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(135deg, var(--ifm-color-primary-dark) 0%, var(--ifm-color-primary-darker) 100%);
+}
+
+.fileContentTextarea:focus {
+  outline: none;
+  border-color: var(--ifm-color-primary);
+  box-shadow: 
+    0 0 0 4px rgba(var(--ifm-color-primary-rgb), 0.1),
+    0 8px 25px rgba(0, 0, 0, 0.1);
+  background: rgba(255, 255, 255, 0.95);
+  transform: translateY(-1px);
+}
+
+/* 默认内容样式（类似 placeholder） */
+.placeholderContent {
+  color: var(--ifm-color-emphasis-500) !important;
+  font-style: italic;
+  opacity: 0.8;
+}
+
+/* 暗色主题下的默认内容样式 */
+[data-theme='dark'] .placeholderContent {
+  color: var(--ifm-color-emphasis-400) !important;
+  opacity: 0.7;
+}
+
+.modalActions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 16px;
+  padding: 20px 28px 24px;
+  border-top: 1px solid rgba(0, 0, 0, 0.08);
+  background: linear-gradient(135deg, #ffffff 0%, #fafbfc 100%);
+  backdrop-filter: blur(10px);
+}
+
+.confirmButton {
+  padding: 12px 24px;
+  background: linear-gradient(135deg, var(--ifm-color-primary) 0%, var(--ifm-color-primary-dark) 100%);
+  color: white;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 15px;
+  font-weight: 600;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 4px 15px rgba(var(--ifm-color-primary-rgb), 0.3);
+}
+
+.confirmButton::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.5s;
+}
+
+.confirmButton:hover:not(:disabled) {
+  background: linear-gradient(135deg, var(--ifm-color-primary-dark) 0%, var(--ifm-color-primary-darker) 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(var(--ifm-color-primary-rgb), 0.4);
+}
+
+.confirmButton:hover:not(:disabled)::before {
+  left: 100%;
+}
+
+.confirmButton:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+.confirmButton:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+.cancelButton {
+  padding: 12px 24px;
+  background: rgba(0, 0, 0, 0.05);
+  color: var(--ifm-color-emphasis-700);
+  border: 2px solid rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 15px;
+  font-weight: 600;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  backdrop-filter: blur(10px);
+}
+
+.cancelButton:hover {
+  background: rgba(0, 0, 0, 0.1);
+  border-color: rgba(0, 0, 0, 0.2);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.cancelButton:active {
+  transform: translateY(0);
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+  .modalContent {
+    width: 95%;
+    max-height: 90vh;
+    border-radius: 20px;
+  }
+  
+  .modalHeader {
+    padding: 20px 24px 16px;
+  }
+  
+  .modalHeader h3 {
+    font-size: 1.3rem;
+  }
+  
+  .modalBody {
+    padding: 20px 24px;
+  }
+  
+  .modalActions {
+    padding: 16px 24px 20px;
+    flex-direction: column-reverse;
+    gap: 12px;
+  }
+  
+  .confirmButton,
+  .cancelButton {
+    width: 100%;
+    justify-content: center;
+    padding: 14px 24px;
+  }
+  
+  .fileContentTextarea {
+    min-height: 180px;
+  }
+}
+
+/* 暗色主题适配 */
+[data-theme='dark'] .modalOverlay {
+  background: rgba(0, 0, 0, 0.8);
+}
+
+[data-theme='dark'] .modalContent {
+  background: linear-gradient(135deg, var(--ifm-background-color) 0%, var(--ifm-background-surface-color) 100%);
+  box-shadow: 
+    0 20px 60px rgba(0, 0, 0, 0.4),
+    0 8px 25px rgba(0, 0, 0, 0.3),
+    0 0 0 1px rgba(255, 255, 255, 0.1);
+}
+
+[data-theme='dark'] .modalHeader {
+  background: linear-gradient(135deg, var(--ifm-background-color) 0%, var(--ifm-background-surface-color) 100%);
+  border-bottom-color: rgba(255, 255, 255, 0.1);
+}
+
+[data-theme='dark'] .modalHeader h3 {
+  color: var(--ifm-color-emphasis-100);
+}
+
+[data-theme='dark'] .closeButton {
+  background: rgba(255, 255, 255, 0.1);
+  color: var(--ifm-color-emphasis-300);
+}
+
+[data-theme='dark'] .closeButton:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+[data-theme='dark'] .modalBody {
+  background: rgba(0, 0, 0, 0.2);
+}
+
+/* 移除这行 - modalBody不再需要滚动条 */
+/* [data-theme='dark'] .modalBody::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.1);
+} */
+
+/* 为暗色主题下的textarea添加滚动条样式 */
+[data-theme='dark'] .fileContentTextarea::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+[data-theme='dark'] .fileContentTextarea::-webkit-scrollbar-thumb {
+  background: linear-gradient(135deg, var(--ifm-color-primary) 0%, var(--ifm-color-primary-dark) 100%);
+}
+
+[data-theme='dark'] .fileContentTextarea::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(135deg, var(--ifm-color-primary-dark) 0%, var(--ifm-color-primary-darker) 100%);
+}
+
+[data-theme='dark'] .inputGroup label {
+  color: var(--ifm-color-emphasis-200);
+}
+
+[data-theme='dark'] .fileNameInput,
+[data-theme='dark'] .fileContentTextarea {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.25);
+  color: #ffffff; /* 改为纯白色，确保在暗色背景下清晰可见 */
+}
+
+[data-theme='dark'] .fileNameInput:focus,
+[data-theme='dark'] .fileContentTextarea:focus {
+  background: rgba(255, 255, 255, 0.12);
+  border-color: var(--ifm-color-primary);
+  color: #ffffff; /* 聚焦时也保持纯白色 */
+}
+
+/* 暗色主题下的占位符文本样式 */
+[data-theme='dark'] .fileNameInput::placeholder,
+[data-theme='dark'] .fileContentTextarea::placeholder {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+/* 暗色主题下的默认内容样式（虚拟占位符） */
+[data-theme='dark'] .placeholderContent {
+  color: rgba(255, 255, 255, 0.5) !important;
+  opacity: 0.8;
+}
+
+[data-theme='dark'] .modalActions {
+  background: linear-gradient(135deg, var(--ifm-background-color) 0%, var(--ifm-background-surface-color) 100%);
+  border-top-color: rgba(255, 255, 255, 0.1);
+}
+
+[data-theme='dark'] .cancelButton {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.2);
+  color: var(--ifm-color-emphasis-300);
+}
+
+[data-theme='dark'] .cancelButton:hover {
+  background: rgba(255, 255, 255, 0.2);
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+/* 自定义通知样式 */
+.notification {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 10000;
+  min-width: 320px;
+  max-width: 500px;
+  border-radius: 12px;
+  backdrop-filter: blur(10px);
+  animation: notificationSlideIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  box-shadow: 
+    0 10px 40px rgba(0, 0, 0, 0.15),
+    0 4px 12px rgba(0, 0, 0, 0.1),
+    0 0 0 1px rgba(255, 255, 255, 0.2);
+}
+
+@keyframes notificationSlideIn {
+  from {
+    opacity: 0;
+    transform: translateX(100%) scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0) scale(1);
+  }
+}
+
+.notification.success {
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  border: 1px solid rgba(16, 185, 129, 0.3);
+}
+
+.notification.error {
+  background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+  border: 1px solid rgba(239, 68, 68, 0.3);
+}
+
+.notificationContent {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 20px;
+  color: white;
+}
+
+.notificationMessage {
+  font-size: 15px;
+  font-weight: 600;
+  flex: 1;
+  margin-right: 12px;
+  line-height: 1.4;
+}
+
+.notificationClose {
+  background: rgba(255, 255, 255, 0.2);
+  border: none;
+  color: white;
+  font-size: 18px;
+  cursor: pointer;
+  padding: 4px 8px;
+  border-radius: 6px;
+  transition: all 0.2s ease;
+  line-height: 1;
+  min-width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.notificationClose:hover {
+  background: rgba(255, 255, 255, 0.3);
+  transform: scale(1.1);
+}
+
+/* 移动端通知样式 */
+@media (max-width: 768px) {
+  .notification {
+    top: 10px;
+    right: 10px;
+    left: 10px;
+    min-width: auto;
+    max-width: none;
+  }
+  
+  .notificationContent {
+    padding: 14px 16px;
+  }
+  
+  .notificationMessage {
+    font-size: 14px;
+    margin-right: 8px;
+  }
+  
+  .notificationClose {
+    min-width: 24px;
+    height: 24px;
+    font-size: 16px;
+  }
+}
+
+/* 暗色主题下的通知样式 */
+[data-theme='dark'] .notification {
+  box-shadow: 
+    0 10px 40px rgba(0, 0, 0, 0.4),
+    0 4px 12px rgba(0, 0, 0, 0.3),
+    0 0 0 1px rgba(255, 255, 255, 0.1);
+}
+
+[data-theme='dark'] .notification.success {
+  background: linear-gradient(135deg, #059669 0%, #047857 100%);
+}
+
+[data-theme='dark'] .notification.error {
+  background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
+}

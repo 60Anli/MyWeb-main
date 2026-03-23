@@ -1,0 +1,551 @@
+.fileManager {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  background: var(--ifm-background-color);
+}
+
+.toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--ifm-color-emphasis-200);
+  background: var(--ifm-background-surface-color);
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.workspaceSelector {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.workspaceSelector label {
+  font-weight: 500;
+  color: var(--ifm-color-emphasis-700);
+}
+
+.workspaceButtons {
+  display: flex;
+  gap: 4px;
+}
+
+.workspaceBtn {
+  padding: 6px 12px;
+  border: 1px solid var(--ifm-color-emphasis-300);
+  border-radius: 4px;
+  background: var(--ifm-background-color);
+  color: var(--ifm-color-emphasis-800);
+  cursor: pointer;
+  font-size: 14px;
+  transition: all 0.2s;
+}
+
+.workspaceBtn:hover {
+  background: var(--ifm-color-emphasis-100);
+  border-color: var(--ifm-color-primary);
+}
+
+.workspaceBtn.active {
+  background: var(--ifm-color-primary);
+  color: white;
+  border-color: var(--ifm-color-primary);
+}
+
+.workspaceBtn.active:hover {
+  background: var(--ifm-color-primary-dark);
+}
+
+/* 通知系统样式 */
+.notificationContainer {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.notification {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 16px;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  cursor: pointer;
+  animation: slideIn 0.3s ease-out;
+  min-width: 300px;
+  max-width: 400px;
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+.notification.success {
+  background: #d4edda;
+  border: 1px solid #c3e6cb;
+  color: #155724;
+}
+
+.notification.error {
+  background: #f8d7da;
+  border: 1px solid #f5c6cb;
+  color: #721c24;
+}
+
+.notification.info {
+  background: #d1ecf1;
+  border: 1px solid #bee5eb;
+  color: #0c5460;
+}
+
+.notificationIcon {
+  font-size: 16px;
+}
+
+.notificationMessage {
+  flex: 1;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.notificationClose {
+  background: none;
+  border: none;
+  font-size: 18px;
+  cursor: pointer;
+  opacity: 0.7;
+  padding: 0;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.notificationClose:hover {
+  opacity: 1;
+}
+
+/* 确认对话框样式 */
+.confirmOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: var(--ifm-background-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1001;
+}
+
+.confirmDialog {
+  background: var(--ifm-background-surface-color);
+  border: 2px solid var(--ifm-color-emphasis-300);
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow: 0 8px 32px var(--ifm-color-emphasis-200);
+  max-width: 400px;
+  width: 90%;
+  animation: scaleIn 0.2s ease-out;
+}
+
+@keyframes scaleIn {
+  from {
+    transform: scale(0.9);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.confirmHeader {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.confirmIcon {
+  font-size: 24px;
+}
+
+.confirmHeader h3 {
+  margin: 0;
+  color: var(--ifm-color-emphasis-800);
+}
+
+.confirmDialog p {
+  margin: 8px 0;
+  color: var(--ifm-color-emphasis-700);
+  line-height: 1.5;
+}
+
+.confirmWarning {
+  font-size: 13px;
+  color: var(--ifm-color-emphasis-600);
+  font-style: italic;
+}
+
+.confirmActions {
+  display: flex;
+  gap: 12px;
+  margin-top: 20px;
+  justify-content: flex-end;
+}
+
+.confirmCancel, .confirmDelete {
+  padding: 8px 16px;
+  border: 1px solid var(--ifm-color-emphasis-300);
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  transition: all 0.2s;
+}
+
+.confirmCancel {
+  background: var(--ifm-background-color);
+  color: var(--ifm-color-emphasis-800);
+  border-color: var(--ifm-color-emphasis-300);
+}
+
+.confirmCancel:hover {
+  background: var(--ifm-color-emphasis-100);
+  border-color: var(--ifm-color-emphasis-400);
+}
+
+.confirmDelete {
+  background: #dc3545;
+  color: white;
+  border-color: #dc3545;
+}
+
+.confirmDelete:hover {
+  background: #c82333;
+  border-color: #c82333;
+}
+
+.workspaceSelector select {
+  padding: 4px 8px;
+  border: 1px solid var(--ifm-color-emphasis-300);
+  border-radius: 4px;
+  background: var(--ifm-background-color);
+  color: var(--ifm-color-emphasis-800);
+}
+
+.actions {
+  display: flex;
+  gap: 8px;
+}
+
+.actionBtn, .saveBtn {
+  padding: 6px 12px;
+  border: 1px solid var(--ifm-color-emphasis-300);
+  border-radius: 4px;
+  background: var(--ifm-background-color);
+  color: var(--ifm-color-emphasis-800);
+  cursor: pointer;
+  font-size: 14px;
+  transition: all 0.2s;
+}
+
+.actionBtn:hover, .saveBtn:hover {
+  background: var(--ifm-color-emphasis-100);
+  border-color: var(--ifm-color-primary);
+}
+
+.saveBtn {
+  background: var(--ifm-color-primary);
+  color: white;
+  border-color: var(--ifm-color-primary);
+}
+
+.saveBtn:hover {
+  background: var(--ifm-color-primary-dark);
+}
+
+.saveBtn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.content {
+  flex: 1;
+  display: flex;
+  overflow: hidden;
+}
+
+.sidebar {
+  width: 300px;
+  border-right: 1px solid var(--ifm-color-emphasis-200);
+  background: var(--ifm-background-surface-color);
+  display: flex;
+  flex-direction: column;
+}
+
+.sidebarHeader {
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--ifm-color-emphasis-200);
+}
+
+.sidebarHeader h3 {
+  margin: 0;
+  font-size: 16px;
+  color: var(--ifm-color-emphasis-800);
+}
+
+.fileTree {
+  flex: 1;
+  overflow-y: auto;
+  padding: 8px 0;
+}
+
+.treeNode {
+  user-select: none;
+}
+
+.nodeItem {
+  display: flex;
+  align-items: center;
+  padding: 6px 12px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  position: relative;
+}
+
+.nodeItem:hover {
+  background: var(--ifm-color-emphasis-100);
+}
+
+.nodeItem.selected {
+  background: var(--ifm-color-primary-lightest);
+  border-right: 3px solid var(--ifm-color-primary);
+}
+
+.nodeIcon {
+  margin-right: 8px;
+  font-size: 14px;
+}
+
+.nodeName {
+  flex: 1;
+  font-size: 14px;
+  color: var(--ifm-color-emphasis-800);
+}
+
+.deleteBtn {
+  opacity: 0;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 2px;
+  border-radius: 2px;
+  transition: all 0.2s;
+}
+
+.nodeItem:hover .deleteBtn {
+  opacity: 1;
+}
+
+.deleteBtn:hover {
+  background: var(--ifm-color-danger-lightest);
+}
+
+.editor {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  background: var(--ifm-background-color);
+}
+
+.editorHeader {
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--ifm-color-emphasis-200);
+  background: var(--ifm-background-surface-color);
+}
+
+.editorHeader h3 {
+  margin: 0;
+  font-size: 16px;
+  color: var(--ifm-color-emphasis-800);
+}
+
+.editorTextarea {
+  flex: 1;
+  border: none;
+  outline: none;
+  padding: 16px;
+  font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+  font-size: 14px;
+  line-height: 1.5;
+  background: var(--ifm-background-color);
+  color: var(--ifm-color-emphasis-800);
+  resize: none;
+}
+
+.placeholder {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: var(--ifm-color-emphasis-600);
+  text-align: center;
+}
+
+.placeholder h3 {
+  margin-bottom: 8px;
+  color: var(--ifm-color-emphasis-700);
+}
+
+.loading {
+  padding: 20px;
+  text-align: center;
+  color: var(--ifm-color-emphasis-600);
+}
+
+/* 模态框样式 */
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modalContent {
+  background: var(--ifm-background-color);
+  padding: 24px;
+  border-radius: 8px;
+  width: 400px;
+  max-width: 90vw;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+}
+
+.modalContent h3 {
+  margin: 0 0 16px 0;
+  color: var(--ifm-color-emphasis-800);
+}
+
+.formGroup {
+  margin-bottom: 16px;
+}
+
+.formGroup label {
+  display: block;
+  margin-bottom: 4px;
+  font-weight: 500;
+  color: var(--ifm-color-emphasis-700);
+}
+
+.formGroup input {
+  width: 100%;
+  padding: 8px 12px;
+  border: 1px solid var(--ifm-color-emphasis-300);
+  border-radius: 4px;
+  background: var(--ifm-background-color);
+  color: var(--ifm-color-emphasis-800);
+  font-size: 14px;
+}
+
+.formGroup input:focus {
+  outline: none;
+  border-color: var(--ifm-color-primary);
+  box-shadow: 0 0 0 2px var(--ifm-color-primary-lightest);
+}
+
+.modalActions {
+  display: flex;
+  gap: 8px;
+  justify-content: flex-end;
+  margin-top: 20px;
+}
+
+.modalActions button {
+  padding: 8px 16px;
+  border: 1px solid var(--ifm-color-emphasis-300);
+  border-radius: 4px;
+  background: var(--ifm-background-color);
+  color: var(--ifm-color-emphasis-800);
+  cursor: pointer;
+  font-size: 14px;
+  transition: all 0.2s;
+}
+
+.modalActions button:first-child {
+  background: var(--ifm-color-primary);
+  color: white;
+  border-color: var(--ifm-color-primary);
+}
+
+.modalActions button:first-child:hover {
+  background: var(--ifm-color-primary-dark);
+}
+
+.modalActions button:first-child:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.modalActions button:last-child:hover {
+  background: var(--ifm-color-emphasis-100);
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+  .content {
+    flex-direction: column;
+  }
+  
+  .sidebar {
+    width: 100%;
+    height: 200px;
+    border-right: none;
+    border-bottom: 1px solid var(--ifm-color-emphasis-200);
+  }
+  
+  .toolbar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  
+  .actions {
+    justify-content: center;
+  }
+}
+
+/* 深色模式适配 */
+[data-theme='dark'] .fileManager {
+  background: var(--ifm-background-color);
+}
+
+[data-theme='dark'] .nodeItem.selected {
+  background: var(--ifm-color-primary-darkest);
+}
+
+[data-theme='dark'] .editorTextarea {
+  background: var(--ifm-background-color);
+  color: var(--ifm-color-emphasis-800);
+}
